@@ -10,40 +10,34 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            background-color: #FDF0D5; /* Cream page background */
         }
-        /* Ensuring custom checkbox styles are applied correctly with Tailwind */
         input[type="checkbox"].form-checkbox {
-            appearance: none; /* Remove default browser styling */
+            appearance: none;
             background-color: #fff;
-            border: 2px solid #94a3b8; /* gray-400, slightly thicker border */
-            border-radius: 0.25rem; /* rounded-md */
+            border: 2px solid #9ca3af; /* gray-400 */
+            border-radius: 0.25rem;
             display: inline-block;
             position: relative;
             cursor: pointer;
-            flex-shrink: 0; /* Prevent shrinking in flex container */
-            /* Size is now controlled by Tailwind classes h-8 w-8 */
-            /* Ensure vertical alignment if needed */
-             vertical-align: middle;
+            flex-shrink: 0;
+            vertical-align: middle;
         }
         input[type="checkbox"].form-checkbox:checked {
-            background-color: #0D9488; /* teal-600 */
-            border-color: #0D9488; /* teal-600 */
+            background-color: #16a34a; /* green-600 */
+            border-color: #16a34a; /* green-600 */
         }
-        /* Style for the checkmark inside the box */
         input[type="checkbox"].form-checkbox:checked::after {
             content: '✔';
-            /* Adjusted font-size and weight for the larger box */
-            font-size: 1.25rem; /* 20px */
+            font-size: 1.25rem; 
             font-weight: bold;
             color: white;
             position: absolute;
             left: 50%;
             top: 50%;
-            /* Centering the checkmark */
             transform: translate(-50%, -50%);
-            line-height: 1; /* Ensure consistent line height */
+            line-height: 1;
         }
-        /* Accordion styles */
         .accordion-header {
             cursor: pointer;
         }
@@ -53,10 +47,10 @@
             transition: max-height 0.3s ease-out;
         }
         .accordion-content.open {
-            max-height: 2000px; /* Adjust as needed */
+            max-height: 2000px;
         }
         #logoUpload {
-            display: none; /* Hide the default file input */
+            display: none;
         }
         #logoDisplayContainer {
             cursor: pointer;
@@ -73,51 +67,120 @@
         .instructions li {
             margin-bottom: 0.25rem;
         }
-        /* Add some margin to the checkbox cell for better spacing */
         .checkbox-cell {
-            padding-right: 0.5rem; /* Add some space between checkbox and label */
+            padding-right: 0.5rem;
+        }
+        /* Focus ring color */
+        .form-input:focus, input[type="checkbox"].form-checkbox:focus, input[type="date"]:focus {
+            border-color: #15803d; /* green-700 */
+            /* ring-color: #15803d; /* green-700 */
+            box-shadow: 0 0 0 2px #a7f3d0; /* green-200 with opacity */
+        }
+        .task-item-row.even-row {
+            background-color: #f0fdf4; /* green-50 */
+        }
+        .info-field label {
+            color: #14532d; /* green-900 for labels, darker for contrast */
+        }
+        .main-header {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        .main-header h1 {
+            font-size: 2.5rem; 
+            line-height: 1.2;
+            color: #15803d; /* green-700 */
+            font-weight: 700; 
+            margin-bottom: 0.5rem;
+        }
+        .main-header p {
+            font-size: 1rem;
+            color: #4b5563; /* gray-600 */
+            margin-bottom: 1.5rem;
         }
     </style>
 </head>
-<body class="bg-slate-100 text-gray-800 p-4 md:p-8">
+<body class="text-gray-800 p-4 md:p-8">
     <div class="max-w-4xl mx-auto">
-        <div class="mb-6 p-4 bg-teal-50 border border-teal-200 rounded-lg shadow instructions">
-            <h2 class="text-lg font-semibold text-teal-700 mb-2">How to Use This Checklist:</h2>
-            <ul class="text-sm text-teal-600">
+        <div class="mb-6 p-4 bg-green-50 border border-green-300 rounded-lg shadow instructions">
+            <h2 class="text-lg font-semibold text-green-700 mb-2">How to Use This Checklist:</h2>
+            <ul class="text-sm text-green-700">
+                <li>Fill in the general information and plan date at the top.</li>
+                <li>To upload a logo, click the placeholder image area above the main title.</li>
                 <li>Click on a section header (e.g., "Personal Care") to expand or collapse its tasks.</li>
                 <li>Check the box next to tasks you perform.</li>
-                <li>For each selected task, you can optionally note "Who can help?" and "When/How often?".</li>
-                <li>Click the placeholder logo area at the top to upload your own logo.</li>
-                <li>In the "Other (Custom Tasks)" section, click "Add Custom Task" to create an input field for new items.</li>
-                <li>Once you've customized your list, use the buttons at the bottom to export it as a PDF, Word document, or Excel CSV file.</li>
+                <li>For each task, note "Who can help?" and "When/How often?" (e.g., Daily, Weekly, Monthly, a specific date).</li>
+                <li>Click "Clear Section" within a section to reset its tasks.</li>
+                <li>In "Other (Custom Tasks)," click "Add Custom Task" for new items.</li>
+                <li>Export your list using the buttons at the bottom.</li>
             </ul>
         </div>
 
         <div class="bg-white p-6 md:p-8 rounded-lg shadow-xl">
-            <header class="text-center mb-8">
-                <div id="logoDisplayContainer" class="mx-auto mb-4 w-24 h-24 rounded-full overflow-hidden border-2 border-gray-300 hover:border-teal-400 flex items-center justify-center transition-colors" title="Click to upload logo">
-                    <img id="logoDisplay" src="https://placehold.co/100x100/CCFBF1/0D9488?text=CG" alt="Logo" class="w-full h-full object-cover">
+            <header class="text-center mb-4">
+                <div id="logoDisplayContainer" class="mx-auto mb-4 w-24 h-24 rounded-full overflow-hidden border-2 border-gray-300 hover:border-green-600 flex items-center justify-center transition-colors" title="Click to upload logo">
+                    <img id="logoDisplay" src="https://placehold.co/100x100/EBFBF5/047857?text=CG" alt="Logo" class="w-full h-full object-cover">
                 </div>
                 <input type="file" id="logoUpload" accept="image/*">
-
-                <h1 class="text-3xl md:text-4xl font-bold text-teal-700">Caregiver Checklist</h1>
-                <p class="text-gray-600 mt-2">Identify and prioritize the support you need. Mark tasks, note who can help, and how often.</p>
             </header>
+
+            <div class="main-header">
+                <h1 class="text-green-700">Caregiver Checklist</h1>
+                <p>Identify and prioritize the support you need.</p>
+            </div>
+
+            <div class="my-6 p-4 border border-gray-200 rounded-md">
+                <h3 class="text-xl font-semibold text-green-700 mb-4">Plan & Contact Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+                    <div class="info-field">
+                        <label for="planDate" class="block text-sm font-medium">Date for Plan:</label>
+                        <input type="date" id="planDate" name="planDate" class="mt-1 form-input block w-full rounded-md border-gray-300 shadow-sm">
+                    </div>
+                    <div class="info-field">
+                        <label for="patientName" class="block text-sm font-medium">Name of Patient:</label>
+                        <input type="text" id="patientName" name="patientName" placeholder="Enter patient's full name" class="mt-1 form-input block w-full rounded-md border-gray-300 shadow-sm">
+                    </div>
+                    <div class="info-field">
+                        <label for="caregiverName" class="block text-sm font-medium">Name of Caregiver:</label>
+                        <input type="text" id="caregiverName" name="caregiverName" placeholder="Enter caregiver's full name" class="mt-1 form-input block w-full rounded-md border-gray-300 shadow-sm">
+                    </div>
+                     <div class="info-field">
+                        <label for="patientAge" class="block text-sm font-medium">Age (Patient):</label>
+                        <input type="number" id="patientAge" name="patientAge" placeholder="Enter patient's age" class="mt-1 form-input block w-full rounded-md border-gray-300 shadow-sm">
+                    </div>
+                    <div class="info-field md:col-span-2">
+                        <label for="address" class="block text-sm font-medium">Address:</label>
+                        <input type="text" id="address" name="address" placeholder="Enter address" class="mt-1 form-input block w-full rounded-md border-gray-300 shadow-sm">
+                    </div>
+                    <div class="info-field">
+                        <label for="phoneNumber" class="block text-sm font-medium">Phone/Cellphone Number:</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter phone number" class="mt-1 form-input block w-full rounded-md border-gray-300 shadow-sm">
+                    </div>
+                    <div class="info-field">
+                        <label for="emailAddress" class="block text-sm font-medium">Email Address:</label>
+                        <input type="email" id="emailAddress" name="emailAddress" placeholder="Enter email address" class="mt-1 form-input block w-full rounded-md border-gray-300 shadow-sm">
+                    </div>
+                    <div class="info-field md:col-span-2">
+                        <label for="nextOfKin" class="block text-sm font-medium">Next of Kin (Name & Contact):</label>
+                        <input type="text" id="nextOfKin" name="nextOfKin" placeholder="Enter next of kin details" class="mt-1 form-input block w-full rounded-md border-gray-300 shadow-sm">
+                    </div>
+                </div>
+            </div>
+
 
             <main id="checklistContainer" class="space-y-6">
                 </main>
 
             <div class="mt-8 pt-6 border-t border-gray-300 export-buttons text-center">
-                <h2 class="text-xl font-semibold mb-4 text-gray-700">Export Your Checklist</h2>
-                <button id="exportPdf" class="bg-rose-500 hover:bg-rose-600 text-white font-semibold py-2 px-4 rounded-md shadow transition-colors">Export to PDF</button>
-                <button id="exportDoc" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-md shadow transition-colors">Export to Word (.doc)</button>
-                <button id="exportCsv" class="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-2 px-4 rounded-md shadow transition-colors">Export to Excel (.csv)</button>
+                <h2 class="text-xl font-semibold mb-4 text-green-700">Export Your Checklist</h2>
+                <button id="exportPdf" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded-md shadow transition-colors">Export to PDF</button>
+                <button id="exportDoc" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md shadow transition-colors">Export to Word (.doc)</button>
+                <button id="exportCsv" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-md shadow transition-colors">Export to Excel (.csv)</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Checklist data based on the PDF
         const checklistData = [
              {
                 section: "Personal Care",
@@ -157,8 +220,8 @@
             },
             {
                 section: "Other (Custom Tasks)",
-                items: [], // Start with no predefined custom tasks
-                custom: true // Flag to identify this section for adding tasks
+                items: [],
+                custom: true
             }
         ];
 
@@ -167,53 +230,57 @@
         const logoDisplay = document.getElementById('logoDisplay');
         const logoDisplayContainer = document.getElementById('logoDisplayContainer');
 
-        // Handle logo upload
         logoDisplayContainer.addEventListener('click', () => logoUploadInput.click());
         logoUploadInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file && file.type.startsWith('image/')) {
                 const reader = new FileReader();
-                reader.onload = (e) => {
-                    logoDisplay.src = e.target.result;
-                }
+                reader.onload = (e) => { logoDisplay.src = e.target.result; }
                 reader.readAsDataURL(file);
             } else if (file) {
-                alert("Please select a valid image file (e.g., JPG, PNG, GIF).");
+                alert("Please select a valid image file.");
             }
         });
 
-        // Function to render the checklist
         function renderChecklist() {
-            checklistContainer.innerHTML = ''; // Clear existing content
-
+            checklistContainer.innerHTML = '';
             checklistData.forEach((sectionData, sectionIndex) => {
                 const sectionId = `section-${sectionIndex}`;
                 const sectionDiv = document.createElement('div');
                 sectionDiv.className = 'bg-white p-0 rounded-lg shadow-md';
 
-                // Accordion Header
                 const headerDiv = document.createElement('div');
-                headerDiv.className = 'accordion-header flex justify-between items-center p-3 rounded-t-md bg-teal-100 hover:bg-teal-200 transition-colors';
-                headerDiv.innerHTML = `<h2 class="text-xl font-semibold text-teal-700">${sectionData.section}</h2>
-                                       <span class="transform transition-transform duration-300 text-xl text-teal-600">&#9660;</span>`; // Down arrow
+                // Accordion header with green background and white text
+                headerDiv.className = 'accordion-header flex justify-between items-center p-3 rounded-t-md bg-green-500 hover:bg-green-600 transition-colors';
+                headerDiv.innerHTML = `<h2 class="text-xl font-semibold text-white">${sectionData.section}</h2>
+                                       <span class="transform transition-transform duration-300 text-xl text-white">&#9660;</span>`;
 
-                // Accordion Content
                 const contentDiv = document.createElement('div');
                 contentDiv.id = sectionId + '-content';
-                contentDiv.className = 'accordion-content p-4 border border-t-0 border-teal-200 rounded-b-md';
+                // Accordion content with green border
+                contentDiv.className = 'accordion-content p-4 border border-t-0 border-green-500 rounded-b-md';
+                
+                const clearSectionButton = document.createElement('button');
+                clearSectionButton.textContent = 'Clear Section';
+                clearSectionButton.className = 'mb-3 text-xs text-red-600 border border-red-600 hover:bg-red-600 hover:text-white px-2 py-1 rounded-md transition-colors float-right';
+                clearSectionButton.onclick = () => clearSectionTasks(sectionIndex);
+                contentDiv.appendChild(clearSectionButton);
+                
+                const tableContainer = document.createElement('div');
+                tableContainer.style.clear = 'both';
 
-                // Table for tasks
                 const table = document.createElement('table');
                 table.className = 'w-full text-sm';
                 const a_thead = table.createTHead();
                 a_thead.className = 'hidden md:table-header-group';
                 const headerRow = a_thead.insertRow();
+                // Table header text in dark green
                 headerRow.innerHTML = `
-                    <th class="text-left p-2 font-semibold text-gray-700">Perform?</th>
-                    <th class="text-left p-2 font-semibold text-gray-700">Activity</th>
-                    <th class="text-left p-2 font-semibold text-gray-700">Who can help?</th>
-                    <th class="text-left p-2 font-semibold text-gray-700">When/How often?</th>
-                    ${sectionData.custom ? '<th class="text-left p-2 font-semibold text-gray-700">Action</th>' : ''}
+                    <th class="text-left p-2 font-semibold text-green-700">Perform?</th>
+                    <th class="text-left p-2 font-semibold text-green-700">Activity</th>
+                    <th class="text-left p-2 font-semibold text-green-700">Who can help?</th>
+                    <th class="text-left p-2 font-semibold text-green-700">When/How often?</th>
+                    ${sectionData.custom ? '<th class="text-left p-2 font-semibold text-green-700">Action</th>' : ''}
                 `;
 
                 const tbody = table.createTBody();
@@ -221,46 +288,45 @@
 
                 sectionData.items.forEach((item, itemIndex) => {
                     const row = tbody.insertRow();
-                    row.className = 'task-item-row border-b border-gray-200 last:border-b-0 flex flex-col md:table-row hover:bg-gray-50 transition-colors';
-
+                    // Alternating row colors: odd white, even light green
+                    row.className = `task-item-row border-b border-gray-200 last:border-b-0 flex flex-col md:table-row hover:bg-gray-100 transition-colors ${itemIndex % 2 !== 0 ? 'even-row' : 'odd:bg-white'}`;
+                    
                     const performCell = row.insertCell();
-                    // Added checkbox-cell class for padding
-                    performCell.className = 'p-2 md:w-auto flex items-center checkbox-cell'; // Use md:w-auto for checkbox column
-                    // *** UPDATED CHECKBOX SIZE HERE ***
-                    performCell.innerHTML = `<input type="checkbox" id="task-${sectionIndex}-${itemIndex}" data-section-index="${sectionIndex}" data-item-index="${itemIndex}" data-section="${sectionData.section}" data-item="${item}" class="form-checkbox h-8 w-8 text-teal-600 rounded border-gray-300 focus:ring-teal-500">`;
+                    performCell.className = 'p-2 md:w-auto flex items-center checkbox-cell';
+                    // Checkbox uses green for checked state
+                    performCell.innerHTML = `<input type="checkbox" id="task-${sectionIndex}-${itemIndex}" data-section-index="${sectionIndex}" data-item-index="${itemIndex}" data-section="${sectionData.section}" data-item="${item}" class="form-checkbox h-8 w-8 text-green-600 rounded border-gray-400">`;
 
                     const activityCell = row.insertCell();
-                    // Adjusted width slightly
-                    activityCell.className = 'p-2 md:w-4/12 flex items-center'; // Use flex items-center for vertical alignment with larger checkbox
+                    activityCell.className = 'p-2 md:w-4/12 flex items-center';
+                    // Activity text color (kept gray for now, can be changed)
                     activityCell.innerHTML = `<label for="task-${sectionIndex}-${itemIndex}" class="cursor-pointer block text-gray-700"><strong class="md:hidden text-gray-600">Activity: </strong>${item}</label>`;
 
                     const helpCell = row.insertCell();
                     helpCell.className = 'p-2 md:w-3/12';
-                    helpCell.innerHTML = `<label class="block text-xs text-gray-500 md:hidden mb-1">Who can help?</label><input type="text" placeholder="e.g., Family, Friend" class="form-input w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50" data-input="help">`;
+                    helpCell.innerHTML = `<label class="block text-xs text-gray-500 md:hidden mb-1">Who can help?</label><input type="text" placeholder="e.g., Family, Friend" class="form-input w-full rounded-md border-gray-300 shadow-sm" data-input="help">`;
 
                     const whenCell = row.insertCell();
                     whenCell.className = 'p-2 md:w-3/12';
-                    whenCell.innerHTML = `<label class="block text-xs text-gray-500 md:hidden mb-1">When/How often?</label><input type="text" placeholder="e.g., Daily, Weekly" class="form-input w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50" data-input="when">`;
+                    whenCell.innerHTML = `<label class="block text-xs text-gray-500 md:hidden mb-1">When/How often?</label><input type="text" placeholder="e.g., Daily, Weekly, Monthly, Date" class="form-input w-full rounded-md border-gray-300 shadow-sm" data-input="when">`;
 
                     if (sectionData.custom) {
                         const actionCell = row.insertCell();
-                        // Adjusted width slightly
                         actionCell.className = 'p-2 md:w-1/12 text-right md:text-left';
-                        actionCell.innerHTML = `<button class="remove-task-btn bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs font-medium transition-colors" data-section-index="${sectionIndex}" data-item-index="${itemIndex}">Remove</button>`;
+                        actionCell.innerHTML = `<button class="remove-task-btn bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-xs font-medium transition-colors" data-section-index="${sectionIndex}" data-item-index="${itemIndex}">Remove</button>`;
                     }
                 });
-                contentDiv.appendChild(table);
+                tableContainer.appendChild(table);
+                contentDiv.appendChild(tableContainer);
 
                 if (sectionData.custom) {
                     const addTaskArea = document.createElement('div');
                     addTaskArea.id = `add-task-area-${sectionIndex}`;
                     addTaskArea.className = "mt-4";
-
                     const addTaskButton = document.createElement('button');
                     addTaskButton.textContent = 'Add Custom Task';
-                    addTaskButton.className = 'add-task-btn bg-teal-500 hover:bg-teal-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors';
+                    // Add task button in green
+                    addTaskButton.className = 'add-task-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors';
                     addTaskButton.onclick = () => showCustomTaskInput(sectionIndex);
-
                     addTaskArea.appendChild(addTaskButton);
                     contentDiv.appendChild(addTaskArea);
                 }
@@ -269,21 +335,28 @@
                 sectionDiv.appendChild(contentDiv);
                 checklistContainer.appendChild(sectionDiv);
 
-                // Accordion functionality
                 headerDiv.addEventListener('click', () => {
                     contentDiv.classList.toggle('open');
                     const arrow = headerDiv.querySelector('span');
                     if (contentDiv.classList.contains('open')) {
-                        arrow.innerHTML = '&#9650;'; // Up arrow
-                        arrow.classList.add('rotate-180');
+                        arrow.innerHTML = '&#9650;'; arrow.classList.add('rotate-180');
                     } else {
-                        arrow.innerHTML = '&#9660;'; // Down arrow
-                        arrow.classList.remove('rotate-180');
+                        arrow.innerHTML = '&#9660;'; arrow.classList.remove('rotate-180');
                     }
                 });
             });
-
             attachRemoveButtonListeners();
+        }
+        
+        function clearSectionTasks(sectionIndex) {
+            const sectionContent = document.getElementById(`section-${sectionIndex}-content`);
+            if (!sectionContent) return;
+            sectionContent.querySelectorAll('input[type="checkbox"].form-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            sectionContent.querySelectorAll('input[type="text"].form-input').forEach(input => {
+                input.value = '';
+            });
         }
 
         function attachRemoveButtonListeners() {
@@ -302,23 +375,20 @@
         function showCustomTaskInput(sectionIndex) {
             const addTaskArea = document.getElementById(`add-task-area-${sectionIndex}`);
             if (!addTaskArea) return;
-
             const addButton = addTaskArea.querySelector('.add-task-btn');
             if (addButton) addButton.style.display = 'none';
-
             if (addTaskArea.querySelector('.custom-task-input-area')) return;
 
             const inputGroup = document.createElement('div');
             inputGroup.className = 'custom-task-input-area';
-
             const inputField = document.createElement('input');
             inputField.type = 'text';
             inputField.placeholder = 'Enter new task name';
-            inputField.className = 'form-input flex-grow rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50';
-
+            inputField.className = 'form-input flex-grow rounded-md border-gray-300 shadow-sm';
             const saveButton = document.createElement('button');
             saveButton.textContent = 'Save Task';
-            saveButton.className = 'save-custom-task-btn bg-teal-500 hover:bg-teal-600 text-white px-3 py-1.5 rounded-md text-sm font-medium transition-colors';
+            // Save task button in green
+            saveButton.className = 'save-custom-task-btn bg-green-600 hover:bg-green-700 text-white px-3 py-1.5 rounded-md text-sm font-medium transition-colors';
             saveButton.onclick = () => {
                 const taskName = inputField.value.trim();
                 if (taskName) {
@@ -329,7 +399,6 @@
                     alert("Task name cannot be empty.");
                 }
             };
-
             const cancelButton = document.createElement('button');
             cancelButton.textContent = 'Cancel';
             cancelButton.className = 'bg-gray-400 hover:bg-gray-500 text-gray-800 px-3 py-1.5 rounded-md text-sm font-medium transition-colors';
@@ -337,7 +406,6 @@
                 inputGroup.remove();
                 if (addButton) addButton.style.display = 'inline-block';
             };
-
             inputGroup.appendChild(inputField);
             inputGroup.appendChild(saveButton);
             inputGroup.appendChild(cancelButton);
@@ -347,19 +415,17 @@
 
         function addCustomTaskToList(sectionIndex, taskName) {
             checklistData[sectionIndex].items.push(taskName);
-
             const tbody = document.getElementById(`tbody-${sectionIndex}`);
             const itemIndex = checklistData[sectionIndex].items.length - 1;
             const item = taskName;
             const sectionData = checklistData[sectionIndex];
 
             const row = tbody.insertRow();
-            row.className = 'task-item-row border-b border-gray-200 last:border-b-0 flex flex-col md:table-row hover:bg-gray-50 transition-colors';
+            row.className = `task-item-row border-b border-gray-200 last:border-b-0 flex flex-col md:table-row hover:bg-gray-100 transition-colors ${itemIndex % 2 !== 0 ? 'even-row' : 'odd:bg-white'}`;
 
             const performCell = row.insertCell();
             performCell.className = 'p-2 md:w-auto flex items-center checkbox-cell';
-             // *** UPDATED CHECKBOX SIZE HERE ***
-            performCell.innerHTML = `<input type="checkbox" id="task-${sectionIndex}-${itemIndex}" data-section-index="${sectionIndex}" data-item-index="${itemIndex}" data-section="${sectionData.section}" data-item="${item}" class="form-checkbox h-8 w-8 text-teal-600 rounded border-gray-300 focus:ring-teal-500">`;
+            performCell.innerHTML = `<input type="checkbox" id="task-${sectionIndex}-${itemIndex}" data-section-index="${sectionIndex}" data-item-index="${itemIndex}" data-section="${sectionData.section}" data-item="${item}" class="form-checkbox h-8 w-8 text-green-600 rounded border-gray-400">`;
 
             const activityCell = row.insertCell();
             activityCell.className = 'p-2 md:w-4/12 flex items-center';
@@ -367,16 +433,15 @@
 
             const helpCell = row.insertCell();
             helpCell.className = 'p-2 md:w-3/12';
-            helpCell.innerHTML = `<label class="block text-xs text-gray-500 md:hidden mb-1">Who can help?</label><input type="text" placeholder="e.g., Family, Friend" class="form-input w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50" data-input="help">`;
+            helpCell.innerHTML = `<label class="block text-xs text-gray-500 md:hidden mb-1">Who can help?</label><input type="text" placeholder="e.g., Family, Friend" class="form-input w-full rounded-md border-gray-300 shadow-sm" data-input="help">`;
 
             const whenCell = row.insertCell();
             whenCell.className = 'p-2 md:w-3/12';
-            whenCell.innerHTML = `<label class="block text-xs text-gray-500 md:hidden mb-1">When/How often?</label><input type="text" placeholder="e.g., Daily, Weekly" class="form-input w-full rounded-md border-gray-300 shadow-sm focus:border-teal-500 focus:ring focus:ring-teal-200 focus:ring-opacity-50" data-input="when">`;
+            whenCell.innerHTML = `<label class="block text-xs text-gray-500 md:hidden mb-1">When/How often?</label><input type="text" placeholder="e.g., Daily, Weekly, Monthly, Date" class="form-input w-full rounded-md border-gray-300 shadow-sm" data-input="when">`;
 
             const actionCell = row.insertCell();
             actionCell.className = 'p-2 md:w-1/12 text-right md:text-left';
-            actionCell.innerHTML = `<button class="remove-task-btn bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs font-medium transition-colors" data-section-index="${sectionIndex}" data-item-index="${itemIndex}">Remove</button>`;
-
+            actionCell.innerHTML = `<button class="remove-task-btn bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-xs font-medium transition-colors" data-section-index="${sectionIndex}" data-item-index="${itemIndex}">Remove</button>`;
             actionCell.querySelector('.remove-task-btn').addEventListener('click', function() {
                 removeCustomTask(sectionIndex, itemIndex);
             });
@@ -385,26 +450,19 @@
             if (contentDiv && !contentDiv.classList.contains('open')) {
                 contentDiv.classList.add('open');
                 const arrow = contentDiv.previousElementSibling.querySelector('span');
-                if(arrow) {
-                    arrow.innerHTML = '&#9650;';
-                    arrow.classList.add('rotate-180');
-                }
+                if(arrow) { arrow.innerHTML = '&#9650;'; arrow.classList.add('rotate-180'); }
             }
         }
 
         function removeCustomTask(sectionIndex, itemIndex) {
             if (confirm(`Are you sure you want to remove the task: "${checklistData[sectionIndex].items[itemIndex]}"?`)) {
                 checklistData[sectionIndex].items.splice(itemIndex, 1);
-                renderChecklist();
-
+                renderChecklist(); 
                 const sectionContent = document.getElementById(`section-${sectionIndex}-content`);
                 if (sectionContent) {
                     sectionContent.classList.add('open');
                      const arrow = sectionContent.previousElementSibling.querySelector('span');
-                    if(arrow) {
-                        arrow.innerHTML = '&#9650;';
-                        arrow.classList.add('rotate-180');
-                    }
+                    if(arrow) { arrow.innerHTML = '&#9650;'; arrow.classList.add('rotate-180'); }
                 }
             }
         }
@@ -416,7 +474,6 @@
                     const taskRow = checkbox.closest('.task-item-row');
                     const helpInput = taskRow.querySelector('input[data-input="help"]');
                     const whenInput = taskRow.querySelector('input[data-input="when"]');
-
                     selected.push({
                         section: checkbox.dataset.section,
                         activity: checkbox.dataset.item,
@@ -427,165 +484,179 @@
             });
             return selected;
         }
+        
+        function getGeneralInfo() {
+            return {
+                planDate: document.getElementById('planDate')?.value || '',
+                patientName: document.getElementById('patientName')?.value || '',
+                caregiverName: document.getElementById('caregiverName')?.value || '',
+                patientAge: document.getElementById('patientAge')?.value || '',
+                address: document.getElementById('address')?.value || '',
+                phoneNumber: document.getElementById('phoneNumber')?.value || '',
+                emailAddress: document.getElementById('emailAddress')?.value || '',
+                nextOfKin: document.getElementById('nextOfKin')?.value || ''
+            };
+        }
 
-        // Export to PDF
         document.getElementById('exportPdf').addEventListener('click', () => {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
             const selectedItems = getSelectedItems();
-
-            if (selectedItems.length === 0) {
-                alert("No items selected to export.");
-                return;
-            }
+            const generalInfo = getGeneralInfo(); 
 
             let logoDataUrl = null;
-            if (logoDisplay.src && logoDisplay.src !== 'https://placehold.co/100x100/CCFBF1/0D9488?text=CG' && logoDisplay.src.startsWith('data:image')) {
+            if (logoDisplay.src && logoDisplay.src !== 'https://placehold.co/100x100/EBFBF5/047857?text=CG' && logoDisplay.src.startsWith('data:image')) {
                 logoDataUrl = logoDisplay.src;
             }
-
-            doc.setFontSize(18);
-            let textYPosition = 22;
-            let tableStartYPosition = 30;
-
+            let currentY = 15; 
             if (logoDataUrl) {
                 try {
                     const imgProps = doc.getImageProperties(logoDataUrl);
-                    const imgWidth = 20;
+                    const imgWidth = 20; 
                     const imgHeight = (imgProps.height * imgWidth) / imgProps.width;
-                    // Add logo with some margin
-                    doc.addImage(logoDataUrl, imgProps.format || 'PNG', 14, 15, imgWidth, imgHeight);
-                    // Position text next to logo, vertically centered relative to logo space
-                    doc.text("Caregiver Checklist", 14 + imgWidth + 5, 15 + (imgHeight / 2) + 3); // Adjust vertical alignment
-                    // Ensure table starts below logo area
-                    tableStartYPosition = 15 + imgHeight + 10;
-                } catch (e) {
-                    console.error("Error adding logo to PDF:", e);
-                    doc.text("Caregiver Checklist", 14, textYPosition); // Fallback text position
+                    doc.addImage(logoDataUrl, imgProps.format || 'PNG', 14, currentY, imgWidth, imgHeight);
+                    if (doc.getTextWidth("Caregiver Checklist") < (doc.internal.pageSize.getWidth() - 14 - imgWidth - 10)) {
+                         doc.setFontSize(18); doc.setTextColor('#15803d'); // green-700
+                         doc.text("Caregiver Checklist", 14 + imgWidth + 5, currentY + imgHeight / 2 + 3); 
+                         currentY += imgHeight > 20 ? imgHeight + 5 : 25; 
+                    } else {
+                        currentY += imgHeight + 5;
+                        doc.setFontSize(18); doc.setTextColor('#15803d');
+                        doc.text("Caregiver Checklist", 14, currentY);
+                        currentY += 10;
+                    }
+                } catch (e) { 
+                    console.error("Error adding logo to PDF:", e); 
+                    doc.setFontSize(18); doc.setTextColor('#15803d');
+                    doc.text("Caregiver Checklist", 14, currentY);
+                    currentY += 10;
                 }
             } else {
-                 doc.text("Caregiver Checklist", 14, textYPosition);
+                doc.setFontSize(18); doc.setTextColor('#15803d');
+                doc.text("Caregiver Checklist", 14, currentY);
+                currentY += 10;
             }
+            
+            doc.setFontSize(10); doc.setTextColor(50); 
+            const addInfoLine = (label, value) => {
+                if (value) { doc.text(`${label}: ${value}`, 14, currentY); currentY += 7; }
+            };
+            addInfoLine("Plan Date", generalInfo.planDate);
+            addInfoLine("Patient Name", generalInfo.patientName);
+            addInfoLine("Caregiver Name", generalInfo.caregiverName);
+            addInfoLine("Patient Age", generalInfo.patientAge);
+            addInfoLine("Address", generalInfo.address);
+            addInfoLine("Phone/Cell", generalInfo.phoneNumber);
+            addInfoLine("Email", generalInfo.emailAddress);
+            addInfoLine("Next of Kin", generalInfo.nextOfKin);
+            currentY += 5; 
 
-            doc.setFontSize(11);
-            doc.setTextColor(100);
-
-            const tableColumn = ["Section", "Activity", "Who can help?", "When/How often?"];
-            const tableRows = [];
-
-            selectedItems.forEach(item => {
-                const itemData = [
-                    item.section,
-                    item.activity,
-                    item.help,
-                    item.when
-                ];
-                tableRows.push(itemData);
-            });
-
-            doc.autoTable({
-                head: [tableColumn],
-                body: tableRows,
-                startY: tableStartYPosition,
-                theme: 'grid',
-                headStyles: { fillColor: [13, 148, 136] }, // teal-600
-                styles: { font: 'helvetica', fontSize: 10 },
-            });
+            if (selectedItems.length === 0 && !Object.values(generalInfo).some(val => val !== '')) {
+                 alert("No information entered or items selected to export."); return;
+            }
+            
+            if (selectedItems.length > 0) {
+                const tableColumn = ["Section", "Activity", "Who can help?", "When/How often?"];
+                const tableRows = selectedItems.map(item => [item.section, item.activity, item.help, item.when]);
+                doc.autoTable({
+                    head: [tableColumn], body: tableRows, startY: currentY, theme: 'grid',
+                    headStyles: { fillColor: '#16a34a', textColor: '#FFFFFF' }, // green-600
+                    styles: { font: 'helvetica', fontSize: 9 },
+                    alternateRowStyles: { fillColor: '#f0fdf4' } // green-50
+                });
+            } else if (Object.values(generalInfo).some(val => val !== '')) {
+                doc.text("No checklist items were selected.", 14, currentY);
+            }
             doc.save('caregiver_checklist.pdf');
         });
 
-        // Export to Word (.doc)
         document.getElementById('exportDoc').addEventListener('click', () => {
             const selectedItems = getSelectedItems();
-            if (selectedItems.length === 0) {
-                alert("No items selected to export.");
-                return;
+            const generalInfo = getGeneralInfo();
+            if (selectedItems.length === 0 && !Object.values(generalInfo).some(val => val !== '')) {
+                 alert("No information entered or items selected to export."); return;
             }
-
             let logoHtml = '';
-            if (logoDisplay.src && logoDisplay.src !== 'https://placehold.co/100x100/CCFBF1/0D9488?text=CG' && logoDisplay.src.startsWith('data:image')) {
+            if (logoDisplay.src && logoDisplay.src !== 'https://placehold.co/100x100/EBFBF5/047857?text=CG' && logoDisplay.src.startsWith('data:image')) {
                 logoHtml = `<p style="text-align:center;"><img src="${logoDisplay.src}" alt="Logo" style="width:80px; height:auto; max-height:80px; border-radius:50%;"></p>`;
             }
+            const sanitize = (str) => String(str || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            let generalInfoHtml = '<div style="margin-bottom: 20px; padding: 10px; border: 1px solid #86efac; border-radius: 5px; background-color: #FFFFFF;">'; // green-300 border
+            generalInfoHtml += `<h3 style="color: #15803d; margin-top:0; margin-bottom: 10px; font-size: 1.2em;">Plan & Contact Information</h3>`; // green-700
+            if(generalInfo.planDate) generalInfoHtml += `<p><strong>Plan Date:</strong> ${sanitize(generalInfo.planDate)}</p>`;
+            if(generalInfo.patientName) generalInfoHtml += `<p><strong>Patient Name:</strong> ${sanitize(generalInfo.patientName)}</p>`;
+            if(generalInfo.caregiverName) generalInfoHtml += `<p><strong>Caregiver Name:</strong> ${sanitize(generalInfo.caregiverName)}</p>`;
+            if(generalInfo.patientAge) generalInfoHtml += `<p><strong>Patient Age:</strong> ${sanitize(generalInfo.patientAge)}</p>`;
+            if(generalInfo.address) generalInfoHtml += `<p><strong>Address:</strong> ${sanitize(generalInfo.address)}</p>`;
+            if(generalInfo.phoneNumber) generalInfoHtml += `<p><strong>Phone/Cell:</strong> ${sanitize(generalInfo.phoneNumber)}</p>`;
+            if(generalInfo.emailAddress) generalInfoHtml += `<p><strong>Email:</strong> ${sanitize(generalInfo.emailAddress)}</p>`;
+            if(generalInfo.nextOfKin) generalInfoHtml += `<p><strong>Next of Kin:</strong> ${sanitize(generalInfo.nextOfKin)}</p>`;
+            generalInfoHtml += '</div>';
 
             let htmlContent = `<html><head><meta charset='utf-8'><title>Caregiver Checklist</title>
-                               <style> body { font-family: Arial, sans-serif; margin: 20px; }
-                                       table { border-collapse: collapse; width: 100%; margin-bottom: 15px; font-size: 10pt; }
-                                       th, td { border: 1px solid #cccccc; padding: 8px; text-align: left; vertical-align: top; } /* Added vertical-align */
-                                       th { background-color: #F0FDFA; color: #0F766E; } /* Light Teal BG, Dark Teal Text */
-                                       h1 { text-align: center; color: #0F766E; } /* Teal-700 */
-                                       h2 { color: #115E59; margin-top: 20px; border-bottom: 1px solid #99D9D1; padding-bottom: 5px;} /* Teal-800, Teal-300 border */
+                               <style> body { font-family: Arial, sans-serif; margin: 20px; background-color: #FDF0D5; } 
+                                       table { border-collapse: collapse; width: 100%; margin-bottom: 15px; font-size: 10pt; background-color: #FFFFFF; }
+                                       th, td { border: 1px solid #cccccc; padding: 8px; text-align: left; vertical-align: top; }
+                                       th { background-color: #22c55e; color: white; } /* green-500 */
+                                       h1 { text-align: center; color: #15803d; font-size: 1.8em; } /* green-700 */
+                                       h2 { color: #15803d; margin-top: 20px; border-bottom: 1px solid #86efac; padding-bottom: 5px; font-size: 1.4em;} /* green-700, green-300 border */
+                                       tr:nth-child(even) { background-color: #f0fdf4; } /* green-50 */
+                                       p { margin: 5px 0; color: #333333; }
+                                       strong { color: #166534; } /* green-800 */
                                </style></head><body>`;
-            htmlContent += logoHtml;
+            htmlContent += logoHtml; 
             htmlContent += `<h1>Caregiver Checklist</h1>`;
-
-            let currentSection = "";
-            selectedItems.forEach(item => {
-                if (item.section !== currentSection) {
-                    if (currentSection !== "") htmlContent += "</tbody></table>";
-                    currentSection = item.section;
-                    htmlContent += `<h2>${currentSection}</h2>`;
-                    htmlContent += `<table border="1">
-                                        <thead>
-                                            <tr>
-                                                <th>Activity</th>
-                                                <th>Who can help?</th>
-                                                <th>When/How often?</th>
-                                            </tr>
-                                        </thead><tbody>`;
-                }
-                // Basic sanitation for Word export - replace potential HTML tags in user input
-                const sanitize = (str) => String(str || '').replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                htmlContent += `<tr>
-                                    <td>${sanitize(item.activity)}</td>
-                                    <td>${sanitize(item.help)}</td>
-                                    <td>${sanitize(item.when)}</td>
-                                </tr>`;
-            });
-            if (currentSection !== "") htmlContent += "</tbody></table>";
-
+            htmlContent += generalInfoHtml; 
+            if (selectedItems.length > 0) {
+                let currentSection = "";
+                selectedItems.forEach(item => {
+                    if (item.section !== currentSection) {
+                        if (currentSection !== "") htmlContent += "</tbody></table>";
+                        currentSection = item.section;
+                        htmlContent += `<h2>${sanitize(currentSection)}</h2><table><thead><tr><th>Activity</th><th>Who can help?</th><th>When/How often?</th></tr></thead><tbody>`;
+                    }
+                    htmlContent += `<tr><td>${sanitize(item.activity)}</td><td>${sanitize(item.help)}</td><td>${sanitize(item.when)}</td></tr>`;
+                });
+                if (currentSection !== "") htmlContent += "</tbody></table>";
+            } else { htmlContent += "<p>No checklist items were selected.</p>"; }
             htmlContent += `</body></html>`;
-
-            const blob = new Blob(['\ufeff', htmlContent], {
-                type: 'application/msword'
-            });
-
+            const blob = new Blob(['\ufeff', htmlContent], { type: 'application/msword' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'caregiver_checklist.doc';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            document.body.appendChild(link); link.click(); document.body.removeChild(link);
         });
 
-        // Export to Excel (.csv)
         document.getElementById('exportCsv').addEventListener('click', () => {
             const selectedItems = getSelectedItems();
-            if (selectedItems.length === 0) {
-                alert("No items selected to export.");
-                return;
+            const generalInfo = getGeneralInfo();
+            if (selectedItems.length === 0 && !Object.values(generalInfo).some(val => val !== '')) {
+                 alert("No information entered or items selected to export."); return;
             }
-
-            let csvContent = "Section,Activity,Who can help?,When/How often?\n";
-            selectedItems.forEach(item => {
-                const escapeCSV = (text) => `"${String(text || '').replace(/"/g, '""')}"`;
-                csvContent += [
-                    escapeCSV(item.section),
-                    escapeCSV(item.activity),
-                    escapeCSV(item.help),
-                    escapeCSV(item.when)
-                ].join(',') + "\n";
-            });
-
+            const escapeCSV = (text) => `"${String(text || '').replace(/"/g, '""')}"`;
+            let csvContent = "Category,Detail\n";
+            if(generalInfo.planDate) csvContent += `Plan Date,${escapeCSV(generalInfo.planDate)}\n`;
+            if(generalInfo.patientName) csvContent += `Patient Name,${escapeCSV(generalInfo.patientName)}\n`;
+            if(generalInfo.caregiverName) csvContent += `Caregiver Name,${escapeCSV(generalInfo.caregiverName)}\n`;
+            if(generalInfo.patientAge) csvContent += `Patient Age,${escapeCSV(generalInfo.patientAge)}\n`;
+            if(generalInfo.address) csvContent += `Address,${escapeCSV(generalInfo.address)}\n`;
+            if(generalInfo.phoneNumber) csvContent += `Phone/Cell,${escapeCSV(generalInfo.phoneNumber)}\n`;
+            if(generalInfo.emailAddress) csvContent += `Email,${escapeCSV(generalInfo.emailAddress)}\n`;
+            if(generalInfo.nextOfKin) csvContent += `Next of Kin,${escapeCSV(generalInfo.nextOfKin)}\n`;
+            csvContent += "\n"; 
+            if (selectedItems.length > 0) {
+                csvContent += "Section,Activity,Who can help?,When/How often?\n";
+                selectedItems.forEach(item => {
+                    csvContent += [escapeCSV(item.section), escapeCSV(item.activity), escapeCSV(item.help), escapeCSV(item.when)].join(',') + "\n";
+                });
+            } else { csvContent += "No checklist items were selected.\n"; }
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
             const link = document.createElement('a');
             link.href = URL.createObjectURL(blob);
             link.download = 'caregiver_checklist.csv';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
+            document.body.appendChild(link); link.click(); document.body.removeChild(link);
         });
 
-        // Initial render of the checklist
         renderChecklist();
     </script>
 </body>
