@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - Caregiver Checklist Generator</title>
+    <style>
+        /* Basic Reset */
+        body, h1, p, a, svg {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif; /* Accessible font */
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f0f4f8; /* Light, neutral background */
+            color: #333; /* Dark grey for text - good contrast */
+            text-align: center; /* Centers the .container */
+            padding: 20px;
+        }
+
+        .container {
+            background-color: #ffffff; /* White container background */
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .logo-container {
+            margin-bottom: 25px;
+            text-align: center; /* Ensures the logo image within this div is centered */
+        }
+
+        .logo {
+            max-width: 150px; /* Adjust as needed */
+            height: auto;
+            border-radius: 50%; /* Making the logo circular if the image is round/square */
+        }
+
+        h1 {
+            /* Color inspired by the darker green in the logo */
+            color: #38761D; 
+            font-size: 2em; /* Responsive font size */
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #555; /* Slightly lighter grey for paragraph text */
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            /* Button color inspired by the light green in the logo, made a bit darker for contrast */
+            background-color: #7CB342; 
+            color: #ffffff; /* White text on button */
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+        }
+
+        .cta-button:hover, .cta-button:focus {
+            /* Darker shade for hover/focus for better interaction feedback */
+            background-color: #558B2F; 
+            transform: translateY(-2px); /* Slight lift effect */
+        }
+
+        .footer-note {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 20px; /* Added margin for spacing before social icons */
+        }
+
+        /* Social Media Icons Section */
+        .social-media-links {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee; /* Light separator line */
+        }
+
+        .social-media-links p {
+            font-size: 0.95em;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px; /* Space between icons */
+            flex-wrap: wrap; /* Allow icons to wrap on smaller screens if needed */
+        }
+
+        .social-icon {
+            display: inline-block;
+            text-decoration: none;
+            color: #38761D; /* Icon color - same as heading */
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .social-icon svg {
+            width: 28px; /* Size of the SVG icons */
+            height: 28px;
+            fill: currentColor; /* SVG will inherit the color from the <a> tag */
+        }
+
+        .social-icon:hover, .social-icon:focus {
+            color: #558B2F; /* Darker green on hover/focus */
+            transform: scale(1.1); /* Slightly enlarge icon on hover */
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 30px;
+            }
+            h1 {
+                font-size: 1.8em;
+            }
+            p {
+                font-size: 1em;
+            }
+            .cta-button {
+                font-size: 1.1em;
+                padding: 12px 25px;
+            }
+            .logo {
+                max-width: 120px;
+            }
+            .social-icon svg {
+                width: 26px;
+                height: 26px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 1.6em;
+            }
+            p {
+                font-size: 0.95em;
+            }
+            .cta-button {
+                font-size: 1em;
+                padding: 10px 20px;
+                width: 100%; /* Make button full width on small screens */
+            }
+            .logo {
+                max-width: 100px;
+            }
+            .social-icon svg {
+                width: 24px;
+                height: 24px;
+            }
+            .social-icons {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-container">
+            <img src="logo .png" alt="The Caregivers Corner Logo" class="logo" onerror="this.style.display='none'; console.error('Logo image not found or error loading image with space in filename.')">
+        </div>
+
+        <h1>Thank You for Subscribing!</h1>
+
+        <p>
+            We're thrilled to have you join The Caregivers Corner community. Your access to the
+            <strong>Caregiver Checklist Generator</strong> has been granted.
+        </p>
+        <p>
+            Click the button below to start creating your personalized checklists and make your caregiving journey a little easier.
+        </p>
+
+        <a href="https://kalubale793.github.io/caregiver-checklist/" class="cta-button" target="_blank" rel="noopener noreferrer">
+            Access Checklist Generator
+        </a>
+
+        <p class="footer-note">
+            If you have any questions, feel free to contact our support team.
+        </p>
+
+        <div class="social-media-links">
+            <p>Connect with us:</p>
+            <div class="social-icons">
+                <a href="https://x.com/caregiverscornr" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Visit our X profile">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <title>X (formerly Twitter)</title>
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                </a>
+                <a href="https://t.co/ytrIRsn2hr" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Visit our YouTube channel">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <title>YouTube</title>
+                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.488 3.411 0 5.295 0 12s.488 8.589 4.385 8.816c3.6.245 11.626.246 15.23 0C23.512 20.589 24 18.705 24 12s-.488-8.589-4.385-8.816zM9.75 15.562V8.438L15.812 12 9.75 15.562z"/>
+                    </svg>
+                </a>
+                <a href="https://t.co/tPNe2maOxw" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="Read our Blogger post">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <title>Blogger</title>
+                        <path d="M20.64 2H3.36A1.36 1.36 0 0 0 2 3.36v17.28A1.36 1.36 0 0 0 3.36 22h17.28A1.36 1.36 0 0 0 22 20.64V3.36A1.36 1.36 0 0 0 20.64 2zM8.5 16.5h-3V13h3zm0-5.5h-3V7.5h3zm8.5 5.5H10V13h7zm0-5.5H10V7.5h7z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
